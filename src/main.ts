@@ -22,4 +22,8 @@ client.on('ready', () => {
     logger.info('Client is ready!');
 });
 
+client.on('message', async (msg) => {
+
+});
+
 client.initialize();

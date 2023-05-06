@@ -7,7 +7,6 @@ lib-cov
 *.pid
 *.gz
 *.swp
-*.js
 
 pids
 logs
@@ -40,3 +39,4 @@ dist/**/*
 
 # ignore yarn.lock
 yarn.lock
+src/*.js
