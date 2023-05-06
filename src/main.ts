@@ -1,5 +1,10 @@
 import { Client } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
+import pino from 'pino';
+
+const logger = pino({ timestamp: pino.stdTimeFunctions.isoTime })
+
+logger.info('hello world')
 
 const client = new Client({
     puppeteer: {
@@ -9,12 +14,12 @@ const client = new Client({
 
 client.on('qr', (qr) => {
     // Generate and scan this code with your phone
-    qrcode.generate(qr, {small: true});
-    console.log('QR RECEIVED', qr);
+    qrcode.generate(qr, { small: true });
+    logger.info('QR RECEIVED', qr);
 });
 
 client.on('ready', () => {
-    console.log('Client is ready!');
+    logger.info('Client is ready!');
 });
 
 client.initialize();
