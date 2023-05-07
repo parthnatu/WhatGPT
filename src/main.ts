@@ -1,27 +1,2 @@
-import { Client } from 'whatsapp-web.js';
-import qrcode from 'qrcode-terminal';
-import pino from 'pino';
-var CONFIG = require('../config.json');
-const logger = pino({ timestamp: pino.stdTimeFunctions.isoTime })
-
-const client = new Client({
-    puppeteer: {
-        args: ['--no-sandbox'],
-    }
-});
-
-client.on('qr', (qr) => {
-    // Generate and scan this code with your phone
-    qrcode.generate(qr, { small: true });
-    logger.info('QR RECEIVED', qr);
-});
-
-client.on('ready', () => {
-    logger.info('Client is ready!');
-});
-
-client.on('message', async (msg) => {
-
-});
-
-client.initialize();
+import { WhatsAppClient } from './whatsapp-client/whatsapp-client'
+const wClient = new WhatsAppClient();
