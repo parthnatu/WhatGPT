@@ -2,10 +2,12 @@
   "dependencies": {
     "pino": "^8.12.1",
     "qrcode-terminal": "^0.12.0",
+    "sqlite": "^4.2.0",
+    "sqlite3": "^5.1.6",
     "whatsapp-web.js": "^1.19.5"
   },
   "scripts": {
-    "start:dev": "node src/main.js",
+    "start": "node build/src/main.js",
     "build": "tsc --build",
     "clean": "tsc --build --clean"
   }
