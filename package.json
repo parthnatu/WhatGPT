@@ -3,5 +3,10 @@
     "pino": "^8.12.1",
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "^1.19.5"
+  },
+  "scripts": {
+    "start:dev": "node src/main.js",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   }
 }
