@@ -4,8 +4,6 @@ import pino from 'pino';
 var CONFIG = require('../config.json');
 const logger = pino({ timestamp: pino.stdTimeFunctions.isoTime })
 
-logger.info(JSON.stringify(CONFIG));
-
 const client = new Client({
     puppeteer: {
         args: ['--no-sandbox'],
