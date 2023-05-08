@@ -57,8 +57,14 @@ export class WhatsAppClient {
                 if (this.isLLMRunning) {
                     msg.reply('Working on it...');
                     if(this.backend){
-                        const llmResponse = await this.backend.processMessageAsPrompt(msg.body.replace('@' + config.whatsapp.selfId, ''));
-                        msg.reply(llmResponse);
+                        try {
+                            const llmResponse = await this.backend.processMessageAsPrompt(msg.body.replace('@' + config.whatsapp.selfId, ''));
+                            msg.reply(llmResponse);
+                        } catch (error) {
+                            logger.error(error);
+                            msg.reply('Oops! Something went wrong.');
+                        }
+                        
                     }
                     else
                         msg.reply('LLM error');

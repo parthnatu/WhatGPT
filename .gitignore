@@ -43,4 +43,4 @@ dist/**/*
 # ignore yarn.lock
 yarn.lock
 src/*.js
-db.sqlite
+*.sqlite
