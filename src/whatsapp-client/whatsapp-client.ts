@@ -4,17 +4,26 @@ import logger from '../util/log'
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 import config from '../util/config'
+import { ChatGPT } from '../backend/chatgpt/chat-gpt'
+import { Backend } from '../backend/backend';
 
 export class WhatsAppClient {
     db: any;
     client: Client;
     isRunning: boolean;
     isLLMRunning: boolean;
+    backend?: Backend;
 
     constructor() {
         this.isRunning = false;
         this.isLLMRunning = false;
         this.initializeDB();
+        if (config.chatgpt.enabled) {
+            this.backend = new ChatGPT(config.chatgpt.openaiOrganizationID,
+                config.chatgpt.chatgptBearerToken,
+                config.chatgpt.requestURL,
+                config.chatgpt.messageTemplate);
+        }
         this.client = new Client({
             puppeteer: {
                 args: ['--no-sandbox'],
@@ -46,7 +55,13 @@ export class WhatsAppClient {
         if (this.isRunning) {
             if (await this.isMentioned(msg)) {
                 if (this.isLLMRunning) {
-                    msg.reply('WIP');
+                    msg.reply('Working on it...');
+                    if(this.backend){
+                        const llmResponse = await this.backend.processMessageAsPrompt(msg.body.replace('@' + config.whatsapp.selfId, ''));
+                        msg.reply(llmResponse);
+                    }
+                    else
+                        msg.reply('LLM error');
                 }
                 else {
                     msg.reply('No LLMs running. Please wait till I am hooked up to an AI model.')
@@ -64,7 +79,7 @@ export class WhatsAppClient {
         return false;
     }
 
-    async initializeDB(){
+    async initializeDB() {
         // open the database
         this.db = await open({
             filename: 'db.sqlite',
