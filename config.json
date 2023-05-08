@@ -1,10 +1,11 @@
 {
-    "isRunning" : true,
-    "whatsapp":{
+    "isRunning": true,
+    "whatsapp": {
         "selfId": 15128427931
     },
     "chatgpt": {
         "enabled": true,
+        "requestURL": "",
         "openaiOrganizationID": "",
         "chatgptBearerToken": "",
         "messageTemplate": {
