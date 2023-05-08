@@ -7,6 +7,8 @@ lib-cov
 *.pid
 *.gz
 *.swp
+*.js
+*.js.map
 
 pids
 logs
@@ -15,6 +17,7 @@ tmp
 
 # Build
 public/css/main.css
+build/*
 
 # Coverage reports
 coverage
@@ -39,3 +42,4 @@ dist/**/*
 
 # ignore yarn.lock
 yarn.lock
+src/*.js
