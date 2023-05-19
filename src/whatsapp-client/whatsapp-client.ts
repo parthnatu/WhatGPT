@@ -1,5 +1,4 @@
 import WAWebJS, { Client } from 'whatsapp-web.js';
-import qrcode from 'qrcode-terminal';
 import logger from '../util/log'
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
@@ -30,9 +29,7 @@ export class WhatsAppClient {
             }
         });
         this.client.on('qr', (qr) => {
-            // Generate and scan this code with your phone
-            qrcode.generate(qr, { small: true });
-            logger.info('QR received', qr);
+            logger.info('QR received ' + qr);
         });
 
         this.client.on('ready', () => {
@@ -56,7 +53,7 @@ export class WhatsAppClient {
             if (await this.isMentioned(msg)) {
                 if (this.isLLMRunning) {
                     msg.reply('Working on it...');
-                    if(this.backend){
+                    if (this.backend) {
                         try {
                             const llmResponse = await this.backend.processMessageAsPrompt(msg.body.replace('@' + config.whatsapp.selfId, ''));
                             msg.reply(llmResponse);
@@ -64,7 +61,7 @@ export class WhatsAppClient {
                             logger.error(error);
                             msg.reply('Oops! Something went wrong.');
                         }
-                        
+
                     }
                     else
                         msg.reply('LLM error');
