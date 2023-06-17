@@ -5,7 +5,7 @@
     "pino-pretty": "^10.0.0",
     "sqlite": "^4.2.0",
     "sqlite3": "^5.1.6",
-    "whatsapp-web.js": "^1.19.5"
+    "whatsapp-web.js": "1.21.0"
   },
   "scripts": {
     "start": "node build/src/main.js",
